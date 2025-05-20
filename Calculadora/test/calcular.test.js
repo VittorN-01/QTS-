@@ -1,45 +1,22 @@
-/**
- * @jest-environment jsdom
-*/
+const request = require('supertest')
+const app = require('../server.js')
 
-const math = require('mathjs')
-const { calcular } = require('../src/calculadora.js');
-
-//Puxar itens do HTML que vou usar
-beforeEach(() => {
-    document.body.innerHTML = `
-        <input type="text" id="operacao" value="" />
-        <div id="resultado">0</div>
-    `;
-});
-
-test('teste para calcular', async () => {
-    document.getElementById('operacao').value = '2+3';
-
-    // Simulação que calcula o resultado da expressão ⬆
-    global.fetch = jest.fn(async (url, options) => {
-        const body = JSON.parse(options.body);
-        const resultado = math.evaluate(body.expressao);
-        return Promise.resolve({
-            ok: true,
-            json: () => Promise.resolve({ resultado })
-        });
-    });
-
-    await calcular();
+describe('POST/calcular', () => {
+    it('teste do servidor calcular', async () => {
+        const res = await request(app)
+            .post('/calcular')
+            .send({ expressao : '5+5' });
     
-    // Verifica se é utilizado o Global.fetch
-    expect(global.fetch).toHaveBeenCalledWith('http://localhost:3000/calcular',expect.any(Object));
-    // Verifica o resultado esperado
-    expect(document.getElementById('resultado').innerText).toBe(5);
-});
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toHaveProperty('resultado', 10);
+    })
+})
 
-test('teste para calcular --> se campo estiver vazio', async () => {
-    document.getElementById('operacao').value = '';
+/*
+test('Calcular', ()=>{
+    const expressao = '5+5';
+    const resultado = math.evaluate(expressao);
+    expect(resultado).toBe(10)
+})
 
-    global.alert = jest.fn();// Simulando o Alert no Navegador
-
-    await calcular();
-
-    expect(global.alert).toHaveBeenCalledWith('Digite uma expressão antes de calcular!'); // Mensagem que deve aparecer de acordo com o calcular do calculadora.js
-});
+*/

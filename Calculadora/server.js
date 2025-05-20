@@ -1,6 +1,6 @@
-import express from 'express'
-import cors from 'cors'
-import * as math from 'mathjs'
+const express = require('express')
+const cors = require('cors')
+const math = require('mathjs')
 
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(cors({
 app.use(express.json());
 
 app.post('/calcular', (req, res) => {
-    const { expressao } = req.body;
+    const { expressao } = req.body.expressao;
 
     if (!expressao){
         return res.status(400).json({erro:"nenhuma expressao válida"}); 
@@ -27,6 +27,7 @@ app.post('/calcular', (req, res) => {
    }
 });
 
-app.listen(3000, () => {
-    console.log('Servidor rodando em http://localhost:3000');
-});
+module.exports = app;
+
+
+

@@ -38,5 +38,4 @@ async function calcular() {
             alert("Erro ao calcular. Verifique a expressão e tente novamente.");
         }   
     }
-
 module.exports = {limpar, adicionarNumero, calcular}

@@ -13,7 +13,7 @@ app.use(cors({
 app.use(express.json());
 
 app.post('/calcular', (req, res) => {
-    const { expressao } = req.body.expressao;
+    const { expressao } = req.body;
 
     if (!expressao){
         return res.status(400).json({erro:"nenhuma expressao válida"}); 
@@ -23,7 +23,7 @@ app.post('/calcular', (req, res) => {
     const resultado = math.evaluate(expressao);
     res.json({ resultado });
    }  catch (error) {
-        res.status(400)({erro: 'expressão inválida' })
+        res.status(400).json({erro: 'expressão inválida' })
    }
 });
 

@@ -14,14 +14,15 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jest": "^29.7.0",
-    "mathjs": "^14.3.1"
+    "mathjs": "^14.3.1",
+    "node": "^20.19.2"
   },
   "directories": {
     "test": "test"
   },
-  "description": "",
   "devDependencies": {
     "jest-environment-jsdom": "^29.7.0",
     "supertest": "^7.1.1"
-  }
+  },
+  "description": ""
 }

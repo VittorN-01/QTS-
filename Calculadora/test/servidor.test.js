@@ -19,13 +19,3 @@ describe('POST /calcular', () => {
     expect(res.body).toHaveProperty('erro');
     });
 });
-
-
-/*
-test('Calcular', ()=>{
-    const expressao = '5+5';
-    const resultado = math.evaluate(expressao);
-    expect(resultado).toBe(10)
-})
-
-*/
